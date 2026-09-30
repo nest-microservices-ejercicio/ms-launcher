@@ -1,0 +1,4 @@
+
+//- Agregamos el modulo del client-gateway copiando el url de donde esta en github, usamos este comando
+
+    git submodule add https://github.com/nest-microservices-ejercicio/client-gateway.git client-gateway
