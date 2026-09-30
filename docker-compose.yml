@@ -1,0 +1,63 @@
+
+services:
+
+  nats-server:
+    image: nats:latest # En produccion es mejor por versiones y no usar latest
+    ports:
+      # - 4222:4222 # clientes (microservicios corriendo en tu PC)
+      - 8222:8222
+
+  #? --------  Cliente http --------
+  client-gateway:
+    # El proceso de construccion lo hacemos con build. le decimos que valla a la carpeta /client-gateway
+    build: ./client-gateway
+    # puerto de nuesta pc con la del contenedor
+    ports:
+      - "${CLIENT_GATEWAY_PORT}:3000"
+    # automaticamente se recargan los cambios con volumes:
+    volumes:
+      -  ./client-gateway/src:/usr/src/app/src # ruta que miramos cambios
+    # comando que vamos a usar para levantar la app
+    command: pnpm run start:dev
+    # variables de entorno que precisamos
+    environment:
+      - PORT=3000
+      - NATS_SERVERS=nats://nats-server:4222
+
+  #? --------  Productos Microservicio  --------
+  products-ms:
+    build: ./products-ms
+    volumes:
+      -  ./products-ms/src:/usr/src/app/src
+    command: pnpm run start:dev
+    environment:
+      - PORT=3001
+      - NATS_SERVERS=nats://nats-server:4222
+      - DATABASE_URL=file:./dev.db
+
+  #? --------  Ordenes Microservicio  --------
+  orders-ms:
+    depends_on:
+      - orders-db
+    build: ./orders-ms
+    volumes:
+      - ./orders-ms/src:/usr/src/app/src
+    command: pnpm run start:dev
+    environment:
+      - PORT=3002
+      - NATS_SERVERS=nats://nats-server:4222
+      - DATABASE_URL=postgresql://postgres:123456@orders-db:5432/ordersdb?schema=public
+
+  #? --------  Ordenes DB  --------
+  orders-db:
+    container_name: orders_database
+    image: postgres:16.2
+    restart: always
+    volumes:
+      - ./orders-ms/postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=ordersdb
