@@ -1,4 +1,14 @@
 
-//- Agregamos el modulo del client-gateway copiando el url de donde esta en github, usamos este comando
+//. 1 - Ceramos una referencia a otro modulo por ejemplo al client-gateway
 
-    git submodule add https://github.com/nest-microservices-ejercicio/client-gateway.git client-gateway
+        git submodule add https://github.com/nest-microservices-ejercicio/client-gateway.git client-gateway
+
+//. 2 - subimos a github
+        git add.
+        git commit "blabla"
+        git push
+
+
+//- Luego levantamos la app desde el launcher 
+
+    docker compose up --build
