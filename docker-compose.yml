@@ -24,16 +24,16 @@ services:
       - PORT=3000
       - NATS_SERVERS=nats://nats-server:4222
 
-  # #? --------  Productos Microservicio  --------
-  # products-ms:
-  #   build: ./products-ms
-  #   volumes:
-  #     -  ./products-ms/src:/usr/src/app/src
-  #   command: pnpm run start:dev
-  #   environment:
-  #     - PORT=3001
-  #     - NATS_SERVERS=nats://nats-server:4222
-  #     - DATABASE_URL=file:./dev.db
+  #? --------  Productos Microservicio  --------
+  products-ms:
+    build: ./products-ms
+    volumes:
+      -  ./products-ms/src:/usr/src/app/src
+    command: pnpm run start:dev
+    environment:
+      - PORT=3001
+      - NATS_SERVERS=nats://nats-server:4222
+      - DATABASE_URL=file:./dev.db
 
   # #? --------  Ordenes Microservicio  --------
   # orders-ms:

@@ -1,14 +1,29 @@
 
-//. 1 - Ceramos una referencia a otro modulo por ejemplo al client-gateway
+// ----- Cramos referencias a otro modulo por ejemplo al client-gateway, products-ms, orders-ms
 
-        git submodule add https://github.com/nest-microservices-ejercicio/client-gateway.git client-gateway
+        - Referencia al cliente
+                git submodule add https://github.com/nest-microservices-ejercicio/client-gateway.git client-gateway
 
-//. 2 - subimos a github
-        git add.
-        git commit "blabla"
-        git push
+        - subimos a github
+                git add.
+                git commit "blabla"
+                git push
+
+        - Luego levantamos la app desde el launcher 
+
+                docker compose up --build
+
+        -----------------------------------------------------------------
+
+        - Referencia a products
+                git submodule add https://github.com/nest-microservices-ejercicio/products-ms.git products-ms
+                
+        - subimos a github
+                git add.
+                git commit "blabla"
+                git push
 
 
-//- Luego levantamos la app desde el launcher 
+        - Luego levantamos la app desde el launcher 
 
-    docker compose up --build
+                docker compose up --build
