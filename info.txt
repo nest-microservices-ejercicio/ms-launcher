@@ -27,3 +27,18 @@
         - Luego levantamos la app desde el launcher 
 
                 docker compose up --build
+
+        -----------------------------------------------------------------
+
+        - Referencia a orders
+                git submodule add https://github.com/nest-microservices-ejercicio/orders-ms.git orders-ms
+                
+        - subimos a github
+                git add.
+                git commit "blabla"
+                git push
+
+
+        - Luego levantamos la app desde el launcher 
+
+                docker compose up --build
